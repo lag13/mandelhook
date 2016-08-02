@@ -1,3 +1,6 @@
+// Package imageutil contains some thin wrappers over go's various image
+// libraries to make working with images a little more intuitive (at least from
+// my perspective).
 package imageutil
 
 import (
@@ -11,7 +14,7 @@ import (
 
 // LoadImageIntoMemory loads the specified image file into memory and returns a
 // variable representing that image.
-func LoadImageIntoMemory(dst draw.Image, file string) (image.Image, error) {
+func LoadImageIntoMemory(file string) (image.Image, error) {
 	f, err := os.Open(file)
 	if err != nil {
 		return nil, fmt.Errorf("could not load file: %v", err)
@@ -45,15 +48,14 @@ func WriteImage(fileName string, img image.Image, encode encoder) (err error) {
 
 // Convert converts the color models of an image from one type to a different
 // one. An example use case is converting an RGBA image into grayscale:
-//		b := src.Bounds()
-//		dst := image.NewGray(image.Bounds())
-//		Convert(dst, img)
+//		dst := image.NewGray(src.Bounds())
+//		Convert(dst, src)
 func Convert(dst draw.Image, src image.Image) {
 	b := src.Bounds()
 	draw.Draw(dst, dst.Bounds(), src, b.Min, draw.Src)
 }
 
-// FillWithColor fills in an entire image with one uniform color.
+// FillWithColor fills in an image with one uniform color.
 func FillWithColor(dst draw.Image, c color.Color) {
 	draw.Draw(dst, dst.Bounds(), image.NewUniform(c), image.ZP, draw.Src)
 }

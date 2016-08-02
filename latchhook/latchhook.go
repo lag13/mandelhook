@@ -1,3 +1,5 @@
+// Package latchhook transforms an image A into another image B representing
+// the latch hook diagram for A.
 package latchhook
 
 // TODO: Make a latchook out of the gopher and send it to renee freench.
@@ -14,6 +16,7 @@ import (
 // in the latch hook diagram.
 const defaultGridCellSideLen = 4
 
+// CreateDiagram creates the latch hook diagram.
 func CreateDiagram(img image.Image) image.Image {
 	return createDiagram(img, defaultGridCellSideLen)
 }
@@ -24,6 +27,7 @@ func createDiagram(img image.Image, cellSideLen int) image.Image {
 	return diagram
 }
 
+// skeletonDiagram creates a white image with grid lines on it.
 func skeletonDiagram(b image.Rectangle, cellSideLen int) draw.Image {
 	skeleton := image.NewRGBA(image.Rect(0, 0, b.Dx()*cellSideLen, b.Dy()*cellSideLen))
 	imageutil.FillWithColor(skeleton, color.White)
@@ -44,6 +48,8 @@ func drawGridLines(img draw.Image, cellSideLen int) {
 	}
 }
 
+// drawDirections puts a symbol into the center of each of the cells. These are
+// the directions for how to make the latch hook.
 func drawDirections(dst draw.Image, img image.Image, cellSideLen int) {
 	b := img.Bounds()
 	mx := 0
