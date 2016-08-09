@@ -9,10 +9,10 @@ import (
 )
 
 // NaiveReduceImageSize (so named because it was the first one I came up with)
-// tries to map every pixel from a bigger image into the smaller image of the
-// given width and height. If multiple pixels from the bigger image get mapped
-// to the same pixel in the smaller image then those pixels are averaged
-// together.
+// tries to map every pixel from a bigger image into a pixel in the smaller
+// image of given width and height. If multiple pixels from the bigger image
+// get mapped to the same pixel in the smaller image then those pixels are
+// averaged together.
 func NaiveReduceImageSize(newWidth int, newHeight int, img image.Image) image.Image {
 	b := img.Bounds()
 	xRatio := float64(newWidth) / float64(b.Dx())
